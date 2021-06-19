@@ -41,9 +41,9 @@ const func = (arr1, arr2) => {
   return sortedUniqArray;
 }
 
+fs.writeFileSync('./output.txt', func(arr1, arr2).join(' '));
+
+
 assert.deepEqual(func([1], [0]), []);
 assert.deepEqual(func([1,2], [2,3]), [2]);
 assert.deepEqual(func([3,2,1], [2,3,1]), [1,2,3]);
-
-
-fs.writeFileSync('./output.txt', func(arr1, arr2).join(' '));

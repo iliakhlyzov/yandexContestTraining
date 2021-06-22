@@ -5,33 +5,52 @@ const rl = readline.createInterface({
   output: process.stdout
 });
 
-const data = [];
-const notSolution = "NO SOLUTION";
-const manySolution = "MANY SOLUTIONS";
+let data = [];
 
-const func = (a, b, c) => {
-  if (c < 0) return notSolution;
-  if (a === 0) {
-    if (b < 0) {
-      return notSolution;
-    } else {
-      return c ** 2 === b ? manySolution : notSolution;
+const func = (k1, m, k2, p2, n2) => {
+  if (n2 > m)
+  const f2 = (p2 - 1) * m + n2;
+
+  if (f2 === 1) {
+    if (k1 <= k2) {
+      return [1, 1];
+    } else if (m === 1) { 
+      return [0, 1];
+    } else if (m * k2 >= k1) {
+      return [1, 0];
     }
+    return [0, 0];
   }
-  const x = (c ** 2 - b) / a;
-  return (a * x + b) < 0  || !Number.isInteger(x)
-    ? notSolution : x;
+
+  const minFlatCount = Math.ceil(k2 / f2);
+  const maxFlatCount = Math.min((k2 - 1) / (f2 - 1));
+  // console.log('flatCount', minFlatCount, maxFlatCount)
+  if (minFlatCount > maxFlatCount) {
+    return [-1, -1];
+  }
+  const f1min = Math.ceil(k1 / minFlatCount) % m;
+  const f1max = Math.ceil(k1 / maxFlatCount) % m;
+
+  const p1min = Math.ceil(k1 / (minFlatCount * m));
+  const p1max = Math.ceil(k1 / (maxFlatCount * m));
+  const n1min = f1min === 0 ? m : f1min;
+  const n1max = f1max === 0 ? m : f1max;
+
+  if (p1min === p1max && n1min === n1max) {
+    return [p1min, n1min];
+  } else if (p1min === p1max) {
+    return [p1min, 0];
+  } else if (n1min === n1max) {
+    return [0, n1min];
+  }
+  return [0, 0];
 };
 
-
-
 // rl.close();
-rl.on('line', (number) => {
-  data.push(Number(number))
-  if (data.length == 3) {
-    rl.close();
-    console.log(func(...data));
-  }
+rl.on('line', (string) => {
+  data = string.split(' ').flatMap(Number);
+  rl.close();
+  console.log(func(...data).join(' '));
 });
 
 /*

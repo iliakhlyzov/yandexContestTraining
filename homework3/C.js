@@ -20,12 +20,16 @@
 // обоих наборах, затем количество и отсортированные по возрастанию номера остальных цветов у Ани, потом количество и 
 // отсортированные по возрастанию номера остальных цветов у Бори.
 
-const fs = require('fs');
-const assert = require('assert/strict');
+const readline = require('readline');
 
-const fileContent = fs.readFileSync('./input.txt', 'utf8');
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout,
+});
 
-const data = fileContent.toString().split('\n').flatMap((el) => el.split(' '));
+let counter = 0;
+let end = 0;
+let data = [];
 
 const func = (data) => {
   const N = +data[0];
@@ -51,12 +55,24 @@ const func = (data) => {
     return [intersection, diffAB, diffBA];
   };
 
-  const [i, dAB, dBA] = getSets(set1, set2).map((arr) => arr.sort((x, y) => x - y));
+  const [i, dAB, dBA] = getSets(set1, set2).map((set) => set.sort((x, y) => x - y));
   return [i.length, i.join(' '), dAB.length, dAB.join(' '), dBA.length, dBA.join(' ')];
 }
 
 const answer = func(data);
-fs.writeFileSync('output.txt', answer.join('\n'));
+
+rl.on('line', (str) => {
+  counter += 1;
+  data.push(...str.split(' ').flatMap(Number));
+  if (counter === 1) {
+    end = data[0] + data[1] + 1;
+  }
+  if (counter === end) {
+    rl.close();
+    console.log(func(data).join('\n'));
+  }
+});
+
 
 // console.log(func([4,3,0,1,10,9,1,3,0]));
 // console.log(func([2, 2, 1, 2, 2, 3]));

@@ -9,24 +9,36 @@ let notaCount = 0;
 let sounds = [];
 let counter = 0;
 
-let leftLimit = 30.0;
-let rightLimit = 8000.0;
+let leftLimit = 30;
+let rightLimit = 4000.0;
 
 const getRangeOfTriagle = (sounds) => {
   let prev = Number(sounds[0]);
   for (let i = 1; i < sounds.length; i += 1) {
     const [nota, type] = [Number(sounds[i][0]), sounds[i][1]];
-    if (type === 'closer') { // ________orev________nota________
+    if (type === 'closer') {
       if (nota > prev) {
-        leftLimit = prev + (nota - prev) / 2;
-      } else { // _____nota________prev_________
-        rightLimit = nota + (prev - nota) / 2;
+        const newLimit = prev + (nota - prev) / 2;
+        if (newLimit > leftLimit) {
+          leftLimit = newLimit;
+        }
+      } else {
+        const newLimit = nota + (prev - nota) / 2;
+        if (rightLimit > newLimit) {
+          rightLimit = newLimit;
+        }
       }
-    } else { // ________orev________nota________
+    } else {
       if (prev < nota) {
-        rightLimit = prev + (nota - prev) / 2;
-      } else { // ______nota______prev_____
-        leftLimit = nota + (prev - nota) / 2;
+        const newLimit = prev + (nota - prev) / 2;
+        if (rightLimit > newLimit) {
+          rightLimit = newLimit;
+        }
+      } else {
+        const newLimit = nota + (prev - nota) / 2;
+        if (newLimit > leftLimit) {
+          leftLimit = newLimit;
+        }
       }
     }
     prev = nota;

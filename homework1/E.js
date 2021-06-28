@@ -8,7 +8,9 @@ const rl = readline.createInterface({
 let data = [];
 
 const func = (k1, m, k2, p2, n2) => {
-  if (n2 > m)
+  if (n2 > m) {
+    return [-1, -1];
+  }
   const f2 = (p2 - 1) * m + n2;
 
   if (f2 === 1) {
@@ -23,8 +25,8 @@ const func = (k1, m, k2, p2, n2) => {
   }
 
   const minFlatCount = Math.ceil(k2 / f2);
-  const maxFlatCount = Math.min((k2 - 1) / (f2 - 1));
-  // console.log('flatCount', minFlatCount, maxFlatCount)
+  const maxFlatCount = Math.floor((k2 - 1) / (f2 - 1));
+  console.log('flatCount', minFlatCount, maxFlatCount)
   if (minFlatCount > maxFlatCount) {
     return [-1, -1];
   }

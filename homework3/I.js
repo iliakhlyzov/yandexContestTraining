@@ -14,7 +14,10 @@ let max = 0;
 let min = 0;
 const languagesMax = [];
 const languagesMin = [];
-Object.entries(languages).forEach()
+Object.values
+Object.entries(languages).forEach(([name, count]) => {
+  if (count ===)
+})
 
 
 console.log(func());

@@ -1,27 +1,30 @@
 const fs = require('fs');
 
-const countOfWords = {};
-const result = [];
+// читаем текст из файла
 const text = fs.readFileSync('./input.txt', 'utf8').trim();
-
 if (text.length === 0) {
-  console.log(0);
-	return;
+  console.log('');
+  return;
 }
 
-text.split('\n')
-  .forEach((sentence) => sentence.split(' ').forEach((word) => {
-    if (countOfWords.hasOwnProperty(word)) {
-      countOfWords[word] += 1;
-    } else {
-      countOfWords[word] = 0;
-    }
-    result.push(countOfWords[word])
-  }));
+// разбиваем текст на слова
+const words = text.split('\n').flatMap((string) => string.trim().split(' ').flatMap((word) => word.trim()));
 
-console.log(result.join(' '))
+// проходим по каждому слову из текста и считаем сколько оно раз встречалось ранее и записываем
+const countOfEveryWord = {};
+const seqOfCountOfEveryWordBefore = [];
+for (const word of words) {
+  if (!countOfEveryWord.hasOwnProperty(word)) {
+    countOfEveryWord[word] = 0;
+  }
+  seqOfCountOfEveryWordBefore.push(countOfEveryWord[word]);
+  countOfEveryWord[word] += 1;
+}
+
+console.log(seqOfCountOfEveryWordBefore.join(' '));
 
 /*
+
 B. Номер появления слова
 Ограничение времени	1 секунда
 Ограничение памяти	64Mb

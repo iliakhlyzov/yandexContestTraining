@@ -18,9 +18,6 @@ for (let i = 1; i <= n; i += 1) {
   }
 }
 console.log(maxHeight)
-// console.log(result.join('\n'))
-
-// console.log(result.join('\n'))
 
 /*
 E. Пирамида

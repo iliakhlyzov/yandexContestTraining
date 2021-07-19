@@ -8,7 +8,6 @@ const seqOfKeyPressure = strings[3].split(' ').map(Number);
 
 for (let i = 0; i < k; i += 1) {
   withstandPressure[seqOfKeyPressure[i] - 1] -= 1;
-  // console.log(withstandPressure)
 }
 const result = [];
 for (let i = 0; i < n; i += 1) {

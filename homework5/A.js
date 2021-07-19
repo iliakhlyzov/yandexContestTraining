@@ -9,6 +9,7 @@ const findBestPairByColor = (n, shitsColourArray, m, trousersColourArray) => {
   // объявим мнимальную разницу
   let minDiff = +Infinity;
   // будем искать лучшую пару, в которой разница меньше, чем минимальная разница
+  // если элемент из первого списка меньше, чем из второго, то читаем следующий элемент из первого, или наоборот
   let bestShirtIndex = 0;
   let bestTrouserIndex = 0;
   let i = 0;
